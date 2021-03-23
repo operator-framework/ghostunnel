@@ -2,6 +2,9 @@ FROM registry.ci.openshift.org/ocp/builder:rhel-8-golang-1.16-openshift-4.8 AS b
 
 COPY . /go/src/github.com/square/ghostunnel
 
+# Note(tflannag): Go 1.16 sets GO111MODULE to `on` by default now.
+ENV GO111MODULE=auto
+
 RUN CGO_ENABLED=0 go build -tags nopkcs11 -o /usr/bin/ghostunnel github.com/square/ghostunnel
 
 FROM registry.ci.openshift.org/ocp/4.8:base
