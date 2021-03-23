@@ -63,3 +63,9 @@ docker-test:
 	docker build --build-arg GO_VERSION=${GO_VERSION} -t squareup/ghostunnel-test -f Dockerfile-test .
 	docker run -v ${PWD}:/go/src/github.com/square/ghostunnel squareup/ghostunnel-test
 .PHONY: docker-test
+
+vendor:
+	go mod tidy
+	go mod vendor
+	go mod verify
+.PHONY: vendor
