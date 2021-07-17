@@ -1,4 +1,4 @@
-FROM registry.ci.openshift.org/ocp/builder:rhel-8-golang-1.16-openshift-4.8 AS build
+FROM registry.ci.openshift.org/ocp/builder:rhel-8-golang-1.16-openshift-4.9 AS build
 
 COPY . /go/src/github.com/square/ghostunnel
 
@@ -7,7 +7,7 @@ ENV GO111MODULE=auto
 
 RUN CGO_ENABLED=0 go build -tags nopkcs11 -o /usr/bin/ghostunnel github.com/square/ghostunnel
 
-FROM registry.ci.openshift.org/ocp/4.8:base
+FROM registry.ci.openshift.org/ocp/4.9:base
 
 COPY --from=build /usr/bin/ghostunnel /usr/bin/ghostunnel
 
